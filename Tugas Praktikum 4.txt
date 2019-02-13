@@ -1,0 +1,183 @@
+Microsoft Windows [Version 10.0.17134.523]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\TAUFIQ ALHAKIM>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE Perusahaan;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cdcol              |
+| mahasiswa          |
+| mysql              |
+| performance_schema |
+| perusahaan         |
+| phpmyadmin         |
+| test               |
+| webauth            |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use perusahaan;
+Database changed
+mysql> CREATE TABLE Pegawai05
+    -> (No_pegawai INT unsigned auto_increment primary key,
+    -> nama_depan VARCHAR (20) not null,
+    -> nama_belakang VARCHAR (20) not null,
+    -> email VARCHAR (20) not null,
+    -> telepon INT (20) not null,
+    -> tgl_kontrak INT (20) not null,
+    -> id_job INT (20) not null,
+    -> gaji INT (2) not null,
+    -> tunjangan VARCHAR (20) not null);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> desc Pegawai05;
++---------------+------------------+------+-----+---------+----------------+
+| Field         | Type             | Null | Key | Default | Extra          |
++---------------+------------------+------+-----+---------+----------------+
+| No_pegawai    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| nama_depan    | varchar(20)      | NO   |     | NULL    |                |
+| nama_belakang | varchar(20)      | NO   |     | NULL    |                |
+| email         | varchar(20)      | NO   |     | NULL    |                |
+| telepon       | int(20)          | NO   |     | NULL    |                |
+| tgl_kontrak   | int(20)          | NO   |     | NULL    |                |
+| id_job        | int(20)          | NO   |     | NULL    |                |
+| gaji          | int(2)           | NO   |     | NULL    |                |
+| tunjangan     | varchar(20)      | NO   |     | NULL    |                |
++---------------+------------------+------+-----+---------+----------------+
+9 rows in set (0.04 sec)
+
+mysql> insert into Pegawai05
+    -> (No_pegawai, nama_depan, nama_belakang, email, telepon, tgl_kontrak, id_job, gaji, tunjangan)
+    -> VALUES
+    -> ("01", "ferry", "yustiawan", "ferry@yahoo.com", "077118544500", "20050901", "10001", "2000000", "500000"),
+    -> ("02", "aris", "yaniardi", "aris@yahoo.com", "077118544501", "20061002", "10002", "2000000", "200000"),
+    -> ("03", "faiz", "ahmad", "faiz@yahoo.com", "077118544502", "20061003", "10003", "1500000", "NULL"),
+    -> ("04", "enma", "bunton", "enma@yahoo.com", "077118544503", "20061104", "10004", "1500000", "0"),
+    -> ("05", "mike", "scoff", "mike@yahoo.com", "077118544504", "20071105", "10005", "1250000", "0"),
+    -> ("06", "lincoln", "burrows", "line@yahoo.com", "077118544505", "20081106", "10006", "1750000", "NULL");
+Query OK, 6 rows affected, 6 warnings (0.11 sec)
+Records: 6  Duplicates: 0  Warnings: 6
+
+mysql> select * from Pegawai05;
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email           | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+|          1 | ferry      | yustiawan     | ferry@yahoo.com | 2147483647 |    20050901 |  10001 | 2000000 | 500000    |
+|          2 | aris       | yaniardi      | aris@yahoo.com  | 2147483647 |    20061002 |  10002 | 2000000 | 200000    |
+|          3 | faiz       | ahmad         | faiz@yahoo.com  | 2147483647 |    20061003 |  10003 | 1500000 | NULL      |
+|          4 | enma       | bunton        | enma@yahoo.com  | 2147483647 |    20061104 |  10004 | 1500000 | 0         |
+|          5 | mike       | scoff         | mike@yahoo.com  | 2147483647 |    20071105 |  10005 | 1250000 | 0         |
+|          6 | lincoln    | burrows       | line@yahoo.com  | 2147483647 |    20081106 |  10006 | 1750000 | NULL      |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Pegawai05
+    -> where nim="3", "4", "6";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' "4", "6"' at line 2
+mysql> select * from Pegawai05
+    -> where gaji="1500000";
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email          | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+|          3 | faiz       | ahmad         | faiz@yahoo.com | 2147483647 |    20061003 |  10003 | 1500000 | NULL      |
+|          4 | enma       | bunton        | enma@yahoo.com | 2147483647 |    20061104 |  10004 | 1500000 | 0         |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Pegawai05
+    -> where gaji="1750000";
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email          | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+|          6 | lincoln    | burrows       | line@yahoo.com | 2147483647 |    20081106 |  10006 | 1750000 | NULL      |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from Pegawai05
+    -> where tunjangan="NULL"
+    -> ;
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email          | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+|          3 | faiz       | ahmad         | faiz@yahoo.com | 2147483647 |    20061003 |  10003 | 1500000 | NULL      |
+|          6 | lincoln    | burrows       | line@yahoo.com | 2147483647 |    20081106 |  10006 | 1750000 | NULL      |
++------------+------------+---------------+----------------+------------+-------------+--------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(gaji) from Pegawai05;
++-----------+
+| sum(gaji) |
++-----------+
+|  10000000 |
++-----------+
+1 row in set (0.12 sec)
+
+mysql> select avg(gaji) from pegawai;
++---------------+
+| avg(gaji)     |
++---------------+
+| 10000000.6667 |
++---------------+
+1 row in set (0.15 sec)
+
+mysql> select * from Pegawai05
+    -> where gaji <="2000000";
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email           | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+|          1 | ferry      | yustiawan     | ferry@yahoo.com | 2147483647 |    20050901 |  10001 | 2000000 | 500000    |
+|          2 | aris       | yaniardi      | aris@yahoo.com  | 2147483647 |    20061002 |  10002 | 2000000 | 200000    |
+|          3 | faiz       | ahmad         | faiz@yahoo.com  | 2147483647 |    20061003 |  10003 | 1500000 | NULL      |
+|          4 | enma       | bunton        | enma@yahoo.com  | 2147483647 |    20061104 |  10004 | 1500000 | 0         |
+|          5 | mike       | scoff         | mike@yahoo.com  | 2147483647 |    20071105 |  10005 | 1250000 | 0         |
+|          6 | lincoln    | burrows       | line@yahoo.com  | 2147483647 |    20081106 |  10006 | 1750000 | NULL      |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Pegawai05
+    -> where gaji <="2000000"
+    -> order by nama;
+ERROR 1054 (42S22): Unknown column 'nama' in 'order clause'
+mysql> select * from Pegawai05
+    -> where gaji <="2000000"
+    -> order by nama_depan;
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+| No_pegawai | nama_depan | nama_belakang | email           | telepon    | tgl_kontrak | id_job | gaji    | tunjangan |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+|          2 | aris       | yaniardi      | aris@yahoo.com  | 2147483647 |    20061002 |  10002 | 2000000 | 200000    |
+|          4 | enma       | bunton        | enma@yahoo.com  | 2147483647 |    20061104 |  10004 | 1500000 | 0         |
+|          3 | faiz       | ahmad         | faiz@yahoo.com  | 2147483647 |    20061003 |  10003 | 1500000 | NULL      |
+|          1 | ferry      | yustiawan     | ferry@yahoo.com | 2147483647 |    20050901 |  10001 | 2000000 | 500000    |
+|          6 | lincoln    | burrows       | line@yahoo.com  | 2147483647 |    20081106 |  10006 | 1750000 | NULL      |
+|          5 | mike       | scoff         | mike@yahoo.com  | 2147483647 |    20071105 |  10005 | 1250000 | 0         |
++------------+------------+---------------+-----------------+------------+-------------+--------+---------+-----------+
+6 rows in set (0.00 sec)
+
+mysql>
